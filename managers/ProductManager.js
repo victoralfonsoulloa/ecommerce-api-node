@@ -1,4 +1,5 @@
 import { promises as fs } from 'fs';
+import { v4 as uuidv4 } from 'uuid';
 
 export default class ProductManager {
   constructor(path) {
@@ -29,9 +30,8 @@ export default class ProductManager {
 
   async addProduct(product) {
     const products = await this._readFile();
-    const newId = products.length ? (Number(products[products.length - 1].id) + 1) : 1;
     const newProduct = {
-      id: newId,
+      id: uuidv4(), // Use uuid for unique IDs
       title: product.title,
       description: product.description,
       code: product.code,
